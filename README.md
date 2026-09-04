@@ -30,4 +30,8 @@ En este repositorio se encontrará todo lo relacionado con el curso de **Fundame
 
   **_Semana-4_**:
 
+  - Todo lo relacionado a la Semana correspondiente: Actividades, temarios, ejercicios hechos en clase, y ejercicios extras. 
+    
+  - **_Semana-5_**:
+
   - ~ ~Por añadir~ ~
