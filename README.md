@@ -30,8 +30,12 @@ En este repositorio se encontrará todo lo relacionado con el curso de **Fundame
 
   **_Semana-4_**:
 
-  - Todo lo relacionado a la Semana correspondiente: Actividades, temarios, ejercicios hechos en clase, y ejercicios extras. 
+  - Todo lo relacionado a la Semana correspondiente: Actividades, temarios, ejercicios hechos en clase, y ejercicios extras.
+
+  **_Semana-5_**:
+
+  -Entrega de certificado de CISCO Academy, junto con 25 Ejercicios Extras por castigo en clase. 
     
-  - **_Semana-5_**:
+  - **_Semana-6_**:
 
   - ~ ~Por añadir~ ~
