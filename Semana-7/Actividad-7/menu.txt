@@ -1,0 +1,62 @@
+Coctel de fruta,65,False,desayunos
+Waffle Belga,85,False,desayunos
+Hot Cakes,65,False,desayunos
+Omelette al gusto,75,False,desayunos
+Chilaquiles sencillos,70,False,desayunos
+Chilaquiles con proteína,85,False,desayunos
+Enchiladas de queso,70,False,desayunos
+Enchiladas de pollo,85,False,desayunos
+Quesadillas,40,False,desayunos
+Quesadillas con proteína,55,False,desayunos
+Sincronizada,45,False,desayunos
+Gringa,60,False,desayunos
+Burrito,70,False,desayunos
+Molletes sencillos,50,False,desayunos
+Molletes con proteína,65,False,desayunos
+Torta de jamón,60,False,torta
+Torta de salchicha,60,False,torta
+Torta de milanesa,70,False,torta
+Torta de chorizo,70,False,torta
+Torta de pastor,70,False,torta
+Torta de arrachera,75,False,torta
+Torta cubana,85,False,torta
+Torta chilaquiles,70,False,torta
+Baguette jamón,70,False,baguette
+Baguette pollo,85,False,baguette
+Baguette milanesa,85,False,baguette
+Baguette italiano,85,False,baguette
+Baguette boneless,90,False,baguette
+Baguel jamón,70,False,baguel
+Baguel huevo,75,False,baguel
+Baguel pepperoni,80,False,baguel
+Baguel arrachera,90,False,baguel
+Hamburguesa sencilla,75,False,hamburguesa
+Hamburguesa tocino,85,False,hamburguesa
+Hamburguesa doble carne,95,False,hamburguesa
+Hamburguesa hawaiana,90,False,hamburguesa
+Refresco,20,True,bebida
+Agua de sabor,35,True,bebida
+Agua natural,20,True,bebida
+Te,20,True,bebida
+Sandwich de jamón,40,False,sandwich
+Sandwich de huevo,45,False,sandwich
+Sandwich de pollo,55,False,sandwich
+Sandwich de jamón de pavo,55,False,sandwich
+Croissant de pollo,55,False,croissant
+Croissant de milanesa,65,False,croissant
+Croissant de huevo con jamón,60,False,croissant
+Croissant de jamón de pavo,65,False,croissant
+Orden de tacos,70,False,varios
+Pasta,60,False,varios
+Club sandwich,70,False,varios
+Crepa,70,False,varios
+Nachos con queso,50,False,varios
+Meat nachos,70,False,varios
+Hot dog jumbo,40,False,varios
+Hot dog jumbo con papas,60,False,varios
+Chicken Bake,75,True,varios
+Sushi,70,True,varios
+Mini Pizza,50,False,varios
+Chicken bake,75,True,varios
+Yakimeshi,50,False,varios
+Pan,20,True,varios

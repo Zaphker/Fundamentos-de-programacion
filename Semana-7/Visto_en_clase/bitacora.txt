@@ -1,4 +1,3 @@
-Esto es una primera linea
-Esto es una segunda linea
-Esto es una tercera linea
-Esto es una cuarta linea
+Sistema Iniciado
+Usuario Registrado
+Operacion guardada

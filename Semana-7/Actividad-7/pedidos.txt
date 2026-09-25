@@ -1,0 +1,13 @@
+=== HISTORIAL DE PEDIDOS Y TICKETS ===
+===== TICKET PARA COCINA =====
+Fecha=(25, 9, 2026)
+Estudiante: hector
+Artículos:
+  - 2 x Hamburguesa tocino (EN PREPARACIÓN)
+  - 1 x Torta cubana (EN PREPARACIÓN)
+  - 1 x Chicken Bake (Disponible)
+  - 4 x Refresco (Disponible)
+TOTAL A PAGAR: $410.0
+⏳ Este pedido requiere tiempo de preparación.
+
+----------------------------------------
