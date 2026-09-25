@@ -11,3 +11,14 @@ TOTAL A PAGAR: $410.0
 ⏳ Este pedido requiere tiempo de preparación.
 
 ----------------------------------------
+
+===== TICKET PARA COCINA =====
+Fecha=(25, 9, 2026)
+Cliente: hector
+Artículos:
+  - 3 x Hamburguesa sencilla (EN PREPARACIÓN)
+  - 2 x Refresco (Disponible)
+TOTAL A PAGAR: $265.0
+Este pedido requiere tiempo de preparación.
+
+----------------------------------------
