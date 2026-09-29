@@ -2,6 +2,8 @@ import time
 import os
 import re
 import datetime
+import threading
+import queue
 
 
 # Los archivos .txt están en la misma carpeta que este script
@@ -19,8 +21,23 @@ ARCHIVOS_SISTEMA = [
     obtener_ruta("bitacora.txt"),
 ]
 
-TIEMPO_MAXIMO_INACTIVIDAD = 600  # 10 minutos en segundos
+TIEMPO_MAXIMO_INACTIVIDAD = 10  # 10 minutos en segundos
+_cola_entrada = queue.Queue()
+hilo_lector = None
+def leer_linea():
+    _cola_entrada.put(input())
 
+def leer_texto(prompt, segundos= None):
+    global hilo_lector
+    print(prompt, end="", flush=True)
+    if hilo_lector is None or not hilo_lector.is_alive():
+        hilo_lector = threading.Thread(target=leer_linea, daemon=True)
+        hilo_lector.start()
+        try: 
+            return _cola_entrada.get(timeout=segundos)
+        except queue.Empty:
+            print()
+            return None
 
 def inicializar_archivos_txt():
     # Crea los 4 archivos base si no existen, con datos por defecto
@@ -226,37 +243,47 @@ def mostrar_menu_categoria(menu_local, categoria):
 # ==========================================
 
 def tomar_pedido(menu_local):
-    # Captura el pedido de un cliente navegando por categorías (máx. 10 artículos)
-    nombre_cliente = input("\nNombre del cliente: ")
+    # Captura el pedido de un estudiante navegando por categorías (máx. 10 artículos, máx. 10 piezas por artículo)
+    nombre_estudiante = input("\nNombre del estudiante: ")
     pedido = []
     LIMITE_ARTICULOS = 10
-
+    LIMITE_CANTIDAD = 10
+ 
     while True:
         if len(pedido) >= LIMITE_ARTICULOS:
             print(f"\n Se alcanzó el límite de {LIMITE_ARTICULOS} artículos por pedido para prevenir saturación.")
-            print("Tu pedido se cerrará automáticamente.\n")
+            print("Si se requiere hacer un pedido mayor, favor de avisar con un día de antelación.")
+            print("El pedido se cierra automáticamente.\n")
             break
-
+ 
         categorias = mostrar_categorias(menu_local)
         try:
-            num_categoria = int(input("Elige el número de categoría (0 para terminar): "))
+            num_categoria = int(input("Número de categoría (0 para terminar): "))
             if num_categoria == 0:
                 break
             if not (1 <= num_categoria <= len(categorias)):
                 print("Categoría inválida.")
                 continue
-
+ 
             categoria_elegida = categorias[num_categoria - 1]
             articulos_categoria = mostrar_menu_categoria(menu_local, categoria_elegida)
-
-            opcion = int(input("Elige el número de artículo (0 para cancelar): "))
+ 
+            opcion = int(input("Número de artículo (0 para cancelar): "))
             if opcion == 0:
                 continue
             if not (1 <= opcion <= len(articulos_categoria)):
-                print("Opción de artículo inválida.")
+                print("Articulo inválido.")
                 continue
-
+ 
             cantidad = int(input("Cantidad: "))
+            if cantidad <= 0:
+                print("La cantidad tiene que ser mayor a 0, no se aceptan cantidades negativas.")
+                continue
+            if cantidad > LIMITE_CANTIDAD:
+                print(f"Solo se pueden pedir hasta {LIMITE_CANTIDAD} piezas de un mismo artículo, para no saturar la cocina.")
+                print("Si se requiere hacer un pedido mayor, favor de avisar con un día de antelación.")
+                continue
+ 
             item_menu = articulos_categoria[opcion - 1]
             pedido.append({
                 "articulo": item_menu["articulo"],
@@ -266,12 +293,11 @@ def tomar_pedido(menu_local):
             })
             print(f"Agregado: {cantidad} x {item_menu['articulo']} ({len(pedido)}/{LIMITE_ARTICULOS})")
         except ValueError as error:
-            print(f"Entrada inválida ({error}). Intenta de nuevo.\n")
+            print(f"Eso no es válido ({error}), intenta de nuevo.\n")
         except Exception as error:
-            print(f"Error inesperado ({error}).\n")
-
-    return nombre_cliente, pedido
-
+            print(f"Algo salió mal ({error}).\n")
+ 
+    return nombre_estudiante, pedido
 
 def calcular_total(pedido):
     # Suma el subtotal de cada artículo del pedido
@@ -406,25 +432,29 @@ def main():
     pantalla_carga()
     ultima_actividad = iniciar_sesion()
     atendiendo = True
-
+ 
     while atendiendo:
-        resultado_inactividad = verificar_inactividad_con_for(ultima_actividad)
-        if resultado_inactividad == "reiniciar":
-            ultima_actividad = iniciar_sesion()
-            continue
-        ultima_actividad = resultado_inactividad
-
         print("\n+---------------------------------------------------+")
-        print("|        SISTEMA DE CAFETERÍA - MENÚ PRINCIPAL      |")
+        print("|              CAFETERÍA - MENÚ PRINCIPAL           |")
         print("+---------------------------------------------------+")
-        print("| 1. Tomar nuevo pedido       | 2. Agregar artículo |")
-        print("| 3. Eliminar artículo        | 4. Gestionar .txt   |")
+        print("| 1. Tomar pedido             | 2. Agregar artículo |")
+        print("| 3. Eliminar artículo        | 4. Ver archivos     |")
         print("| 5. Resumen de ventas        | 6. Salir            |")
         print("+---------------------------------------------------+")
-
-        opcion = input("Elige una opción numérica: ").strip()
-        ultima_actividad = time.time()  # Se actualiza tras cada interacción
-
+ 
+        opcion = leer_texto("Elige una opción: ", TIEMPO_MAXIMO_INACTIVIDAD)
+ 
+        # Si se acabó el tiempo sin que escribieran nada, se pregunta si siguen ahí
+        if opcion is None:
+            resultado_inactividad = verificar_inactividad_con_for(ultima_actividad)
+            if resultado_inactividad == "reiniciar":
+                ultima_actividad = iniciar_sesion()
+            else:
+                ultima_actividad = resultado_inactividad
+            continue
+ 
+        opcion = opcion.strip()
+ 
         if opcion == "1":
             nombre_estudiante, pedido = tomar_pedido(menu)
             if pedido:
@@ -440,10 +470,11 @@ def main():
             mostrar_resumen_ventas()
         elif opcion == "6":
             atendiendo = False
-            print("Cerrando el sistema de cafetería")
+            print("Cerrando el sistema de la cafetería")
         else:
             print("Opción no válida, intenta de nuevo.")
 
+        ultima_actividad = time.time()
 
 if __name__ == "__main__":
     main()

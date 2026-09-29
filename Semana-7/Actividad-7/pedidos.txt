@@ -22,3 +22,14 @@ TOTAL A PAGAR: $265.0
 Este pedido requiere tiempo de preparación.
 
 ----------------------------------------
+
+===== TICKET PARA COCINA =====
+Fecha=(28, 9, 2026)
+Cliente: Hector
+Artículos:
+  - 3 x Torta de salchicha (EN PREPARACIÓN)
+  - 3 x Refresco (Disponible)
+TOTAL A PAGAR: $240.0
+Este pedido requiere tiempo de preparación.
+
+----------------------------------------
